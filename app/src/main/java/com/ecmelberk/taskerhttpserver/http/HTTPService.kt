@@ -14,7 +14,7 @@ class HTTPService : Service() {
     var http: HTTP? = null
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        if (intent.action == START_SERVICE) {
+        if (intent.action == START) {
             var host: String
             var port: Int
 
@@ -27,14 +27,14 @@ class HTTPService : Service() {
             http?.start(NanoHTTPD.SOCKET_READ_TIMEOUT)
             Log.i(LOGNAME, "Server should be started about now")
 
-            startForeground(1337, NotificationCompat.Builder(this, NOTIF_CHANNEL).apply {
+            startForeground(1337, NotificationCompat.Builder(this, NOTIFICATION).apply {
                 setContentTitle("Tasker HTTP Server")
                 setContentText("Running. You can safely disable this notification.")
                 setSmallIcon(R.drawable.ic_http_black_24dp)
             }.build())
 
             ServiceManager.running = true
-        } else if (intent.action == STOP_SERVICE) {
+        } else if (intent.action == STOP) {
             stopForeground(true)
             stopSelf()
 

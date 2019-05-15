@@ -3,8 +3,8 @@ package com.ecmelberk.taskerhttpserver.http
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import com.ecmelberk.taskerhttpserver.START_SERVICE
-import com.ecmelberk.taskerhttpserver.STOP_SERVICE
+import com.ecmelberk.taskerhttpserver.START
+import com.ecmelberk.taskerhttpserver.STOP
 
 internal object ServiceManager {
 
@@ -20,7 +20,7 @@ internal object ServiceManager {
 
     fun start(context: Context, foreground: Boolean = false) {
         val startIntent = Intent(context, HTTPService::class.java)
-        startIntent.action = START_SERVICE
+        startIntent.action = START
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && foreground)
             context.startForegroundService(startIntent)
@@ -30,7 +30,7 @@ internal object ServiceManager {
 
     fun stop(context: Context) {
         val stopIntent = Intent(context, HTTPService::class.java)
-        stopIntent.action = STOP_SERVICE
+        stopIntent.action = STOP
 
         context.startService(stopIntent)
     }

@@ -56,9 +56,9 @@ class MainActivity : AppCompatActivity() {
 
         val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        if (nm.getNotificationChannel(NOTIF_CHANNEL) != null) return
+        if (nm.getNotificationChannel(NOTIFICATION) != null) return
 
-        val channel = NotificationChannel(NOTIF_CHANNEL, "Service Notification", NotificationManager.IMPORTANCE_LOW)
+        val channel = NotificationChannel(NOTIFICATION, "Service Notification", NotificationManager.IMPORTANCE_LOW)
 
         nm.createNotificationChannel(channel)
     }
