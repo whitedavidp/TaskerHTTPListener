@@ -1,4 +1,4 @@
-# TaskerHTTPServer
+# TaskerHTTPServer [![Build Status](https://gh.ci.ecmelberk.com/api/badges/Admicos/TaskerHTTPServer/status.svg)](https://gh.ci.ecmelberk.com/Admicos/TaskerHTTPServer)
 
 Receive HTTP pings from Tasker
 
