@@ -21,7 +21,9 @@ class MainActivity : AppCompatActivity() {
         pref = PreferenceManager.getDefaultSharedPreferences(this)
 
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
+        title = "TaskerHTTPServer ${BuildConfig.VERSION_NAME}"
 
         ServiceManager.onRunningChange {
             isRunning = ServiceManager.running
