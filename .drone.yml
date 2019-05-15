@@ -26,6 +26,11 @@ steps:
       PASSWORD:
         from_secret: keystore_pwd
       GRADLE_USER_HOME: "/home/user/gradleuh"
+    when:
+      branch:
+        - master
+      event:
+        - push
 
   - name: publish
     image: alpine
@@ -35,6 +40,11 @@ steps:
     volumes:
       - name: output
         path: /out
+    when:
+      branch:
+        - master
+      event:
+        - push
 
 volumes:
   - name: keystore
