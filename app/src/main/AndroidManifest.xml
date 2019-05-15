@@ -2,24 +2,37 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.ecmelberk.taskerhttpserver">
 
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
             android:allowBackup="true"
+            android:hardwareAccelerated="false"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".tasker.actions.ToggleServiceAction"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="Toggle HTTP Server">
+            <intent-filter>
+                <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".MainActivity"
+                android:hardwareAccelerated="false">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
         <service android:name=".http.HTTPService"/>
     </application>
-
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>

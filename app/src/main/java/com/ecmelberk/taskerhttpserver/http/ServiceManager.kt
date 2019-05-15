@@ -37,4 +37,11 @@ internal object ServiceManager {
         callback()
     }
 
+    fun toggle(context: Context) {
+        if (this.running)
+            ServiceManager.stop(context)
+        else
+            ServiceManager.start(context)
+    }
+
 }

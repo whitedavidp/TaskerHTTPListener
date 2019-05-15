@@ -26,10 +26,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         toggle_button.setOnClickListener {
-            if (isRunning)
-                ServiceManager.stop(this)
-            else
-                ServiceManager.start(this)
+            ServiceManager.toggle(this)
         }
 
         createNotificationChannnel()
