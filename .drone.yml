@@ -6,6 +6,11 @@ steps:
     image: alpine
     commands:
       - chown 1000:1000 -R .
+    when:
+      branch:
+        - master
+      event:
+        - push
 
   - name: build
     image: thedrhax/android-sdk
