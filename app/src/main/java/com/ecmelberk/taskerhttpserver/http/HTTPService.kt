@@ -13,7 +13,7 @@ import fi.iki.elonen.NanoHTTPD
 
 class HTTPService : Service() {
 
-    val http = HTTP()
+    val http = HTTP(this)
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         if (intent.action == START_SERVICE) {
