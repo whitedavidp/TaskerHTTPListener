@@ -3,4 +3,7 @@
 
     <string name="request_path">Request Path</string>
     <string name="request_path_html">HTTP Request Path</string>
+    <string name="request_path_desc">The path of  the received HTTP request</string>
+
+    <string name="backbutton">Press back to save your changes</string>
 </resources>
