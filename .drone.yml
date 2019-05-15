@@ -20,6 +20,7 @@ steps:
   - name: build
     image: thedrhax/android-sdk
     commands:
+      - ./gradlew -q androidGitVersion
       - ./gradlew assembleRelease
       - jarsigner -keystore /ks/ci.jks -storepass "$PASSWORD" app/build/outputs/apk/release/app-release-unsigned.apk gh.ci.ecmelberk.com
       - yes | /home/user/android-sdk-linux/tools/bin/sdkmanager "build-tools;29.0.0-rc3"
