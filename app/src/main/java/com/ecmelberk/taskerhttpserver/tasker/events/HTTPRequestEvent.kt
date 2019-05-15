@@ -49,13 +49,19 @@ class HTTPRequestHelper(config: TaskerPluginConfig<HTTPRequestFilter>) :
 class HTTPRequestEvent : ActivityConfigTasker<HTTPRequestFilter, HTTPRequest, HTTPRequestRunner, HTTPRequestHelper>() {
 
     override val layoutResId = R.layout.activity_http_request_event
-    override val inputForTasker
-        get() = TaskerInput(
-            HTTPRequestFilter(
-                request_path_edit.text.toString(),
-                request_body_edit.text.toString()
+    override val inputForTasker: TaskerInput<HTTPRequestFilter>
+        get() {
+            var requestPath = request_path_edit.text.toString()
+            if (!requestPath.startsWith("/"))
+                requestPath = "/$requestPath"
+
+            return TaskerInput(
+                HTTPRequestFilter(
+                    requestPath,
+                    request_body_edit.text.toString()
+                )
             )
-        )
+        }
 
     override fun getNewHelper(config: TaskerPluginConfig<HTTPRequestFilter>) = HTTPRequestHelper(config)
 
