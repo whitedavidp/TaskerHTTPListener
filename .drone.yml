@@ -1,0 +1,40 @@
+kind: pipeline
+name: default
+
+steps:
+  - name: fixperms
+    image: alpine
+    commands:
+      - chown 1000:1000 -R .
+
+  - name: build
+    image: thedrhax/android-sdk
+    commands:
+      - ./gradlew assembleRelease
+      - jarsigner -keystore /ks/ci.jks -storepass "$PASSWORD" app/build/outputs/apk/release/app-release-unsigned.apk gh.ci.ecmelberk.com
+      - yes | /home/user/android-sdk-linux/tools/bin/sdkmanager "build-tools;29.0.0-rc3"
+      - /home/user/android-sdk-linux/build-tools/29.0.0-rc3/zipalign -v 4 app/build/outputs/apk/release/app-release-unsigned.apk TaskerHTTPServer.apk
+    volumes:
+      - name: keystore
+        path: /ks
+    environment:
+      PASSWORD:
+        from_secret: keystore_pwd
+      GRADLE_USER_HOME: "/home/user/gradleuh"
+
+  - name: publish
+    image: alpine
+    commands:
+      - cp TaskerHTTPServer.apk /out
+      - md5sum TaskerHTTPServer.apk > /out/TaskerHTTPServer.md5
+    volumes:
+      - name: output
+        path: /out
+
+volumes:
+  - name: keystore
+    host:
+      path: /home/admicos/.secrets/android
+  - name: output
+    host:
+      path: /home/admicos/sharer/data
