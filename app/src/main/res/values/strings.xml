@@ -3,7 +3,13 @@
 
     <string name="request_path">Request Path</string>
     <string name="request_path_html">HTTP Request Path</string>
-    <string name="request_path_desc">The path of  the received HTTP request</string>
+    <string name="request_path_desc">The path of the received HTTP request</string>
+
+    <string name="request_body">Request Body</string>
+    <string name="request_body_desc">The request body. Only sent with a POST request</string>
+
+    <string name="request_body_contains">Request Body Contains</string>
+    <string name="request_body_contains_desc">Check if request body contains the specified string. Optional</string>
 
     <string name="backbutton">Press back to save your changes</string>
     <string name="toggle">Toggle</string>

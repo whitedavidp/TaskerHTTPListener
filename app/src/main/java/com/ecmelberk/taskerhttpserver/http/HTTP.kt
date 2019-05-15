@@ -11,8 +11,17 @@ import fi.iki.elonen.NanoHTTPD
 class HTTP(host: String, port: Int, private val context: Context) : NanoHTTPD(host, port) {
 
     override fun serve(session: IHTTPSession?): Response {
+        val files = mutableMapOf<String, String>()
+        var body = ""
+
         Log.i(LOGNAME, "Got request to ${session?.uri}")
-        HTTPRequestEvent::class.java.requestQuery(context, HTTPRequest(session?.uri))
+
+        if (session?.method == Method.POST) {
+            session.parseBody(files)
+            body = session.queryParameterString // this gets the body for some reason
+        }
+
+        HTTPRequestEvent::class.java.requestQuery(context, HTTPRequest(session?.uri, body))
         return newFixedLengthResponse("")
     }
 

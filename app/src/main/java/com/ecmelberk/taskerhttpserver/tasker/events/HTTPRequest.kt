@@ -10,7 +10,8 @@ import com.joaomgcd.taskerpluginlibrary.output.TaskerOutputVariable
 @TaskerInputRoot
 class HTTPRequestFilter @JvmOverloads constructor(
 
-    @field:TaskerInputField("requestPath", labelResId = R.string.request_path) val requestPath: String? = null
+    @field:TaskerInputField("requestPath", labelResId = R.string.request_path) val requestPath: String? = null,
+    @field:TaskerInputField("requestBody", labelResId = R.string.request_body_contains) val requestBodyContains: String? = null
 
 )
 
@@ -18,6 +19,7 @@ class HTTPRequestFilter @JvmOverloads constructor(
 @TaskerOutputObject
 class HTTPRequest @JvmOverloads constructor(
 
-    @field:TaskerInputField("requestPath") @get:TaskerOutputVariable("httprequest", R.string.request_path, R.string.request_path_desc) val requestPath: String? = null
+    @field:TaskerInputField("requestPath") @get:TaskerOutputVariable("httprequest", R.string.request_path, R.string.request_path_desc) val requestPath: String? = null,
+    @field:TaskerInputField("requestBody") @get:TaskerOutputVariable("httpbody", R.string.request_body, R.string.request_body_desc) val requestBody: String? = null
 
 )

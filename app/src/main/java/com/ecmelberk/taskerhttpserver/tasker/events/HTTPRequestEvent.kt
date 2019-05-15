@@ -26,13 +26,18 @@ class HTTPRequestRunner : TaskerPluginRunnerConditionEvent<HTTPRequestFilter, HT
         if (update?.requestPath != input.regular.requestPath)
             return TaskerPluginResultConditionUnsatisfied()
 
+        if (!input.regular.requestBodyContains.isNullOrEmpty())
+            if (!update?.requestBody?.contains(input.regular.requestBodyContains.toString())!!)
+                return TaskerPluginResultConditionUnsatisfied()
+
         return TaskerPluginResultConditionSatisfied(context, update)
     }
 
 }
 
 
-class HTTPRequestHelper(config: TaskerPluginConfig<HTTPRequestFilter>) : TaskerPluginConfigHelper<HTTPRequestFilter, HTTPRequest, HTTPRequestRunner>(config) {
+class HTTPRequestHelper(config: TaskerPluginConfig<HTTPRequestFilter>) :
+    TaskerPluginConfigHelper<HTTPRequestFilter, HTTPRequest, HTTPRequestRunner>(config) {
 
     override val inputClass = HTTPRequestFilter::class.java
     override val outputClass = HTTPRequest::class.java
@@ -44,12 +49,19 @@ class HTTPRequestHelper(config: TaskerPluginConfig<HTTPRequestFilter>) : TaskerP
 class HTTPRequestEvent : ActivityConfigTasker<HTTPRequestFilter, HTTPRequest, HTTPRequestRunner, HTTPRequestHelper>() {
 
     override val layoutResId = R.layout.activity_http_request_event
-    override val inputForTasker get() = TaskerInput(HTTPRequestFilter(request_path_edit.text.toString()))
+    override val inputForTasker
+        get() = TaskerInput(
+            HTTPRequestFilter(
+                request_path_edit.text.toString(),
+                request_body_edit.text.toString()
+            )
+        )
 
     override fun getNewHelper(config: TaskerPluginConfig<HTTPRequestFilter>) = HTTPRequestHelper(config)
 
     override fun assignFromInput(input: TaskerInput<HTTPRequestFilter>) {
         request_path_edit.setText(input.regular.requestPath)
+        request_body_edit.setText(input.regular.requestBodyContains)
     }
 
 
