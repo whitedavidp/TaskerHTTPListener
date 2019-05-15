@@ -7,7 +7,6 @@
 
     <application
         android:allowBackup="true"
-        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -22,7 +21,8 @@
                 <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
             </intent-filter>
         </activity>
-        <activity android:name=".tasker.events.HTTPRequestEvent"
+        <activity
+            android:name=".tasker.events.HTTPRequestEvent"
             android:exported="true"
             android:icon="@mipmap/ic_launcher"
             android:label="HTTP Request Received">
@@ -30,9 +30,7 @@
                 <action android:name="net.dinglisch.android.tasker.ACTION_EDIT_EVENT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:hardwareAccelerated="false">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

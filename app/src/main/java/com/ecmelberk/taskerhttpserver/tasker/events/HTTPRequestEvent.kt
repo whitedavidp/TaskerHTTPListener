@@ -23,6 +23,9 @@ class HTTPRequestRunner : TaskerPluginRunnerConditionEvent<HTTPRequestFilter, HT
         if (!ServiceManager.running)
             return TaskerPluginResultConditionUnsatisfied()
 
+        if (update?.requestPath != input.regular.requestPath)
+            return TaskerPluginResultConditionUnsatisfied()
+
         return TaskerPluginResultConditionSatisfied(context, update)
     }
 

@@ -6,4 +6,5 @@
     <string name="request_path_desc">The path of  the received HTTP request</string>
 
     <string name="backbutton">Press back to save your changes</string>
+    <string name="toggle">Toggle</string>
 </resources>

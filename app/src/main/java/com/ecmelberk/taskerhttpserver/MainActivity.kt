@@ -3,17 +3,23 @@ package com.ecmelberk.taskerhttpserver
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
+import android.preference.PreferenceManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import com.ecmelberk.taskerhttpserver.http.ServiceManager
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    var isRunning = false
+    private var isRunning = false
+    private lateinit var pref: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        pref = PreferenceManager.getDefaultSharedPreferences(this)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -25,7 +31,20 @@ class MainActivity : AppCompatActivity() {
                 else "Service Not Running"
         }
 
+        pref.apply {
+            host_edit.setText(getString("host", DEFAULT_HOST))
+            port_edit.setText(getInt("port", DEFAULT_PORT).toString())
+        }
+
         toggle_button.setOnClickListener {
+            pref.edit {
+                putString("host", host_edit.text.toString())
+                putInt("port", port_edit.text.toString().toInt())
+
+                putBoolean("enabled", !isRunning)
+                commit()
+            }
+
             ServiceManager.toggle(this)
         }
 
