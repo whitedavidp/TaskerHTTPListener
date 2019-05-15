@@ -9,7 +9,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 androidGitVersion {
-    codeFormat = "MNNPPB"
+    codeFormat = "MNNPPBB"
 }
 
 android {
