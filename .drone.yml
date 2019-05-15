@@ -7,6 +7,11 @@ clone:
     tags: true
 
 steps:
+  - name: gettags
+    image: docker:git
+    commands:
+    - git fetch --tags
+
   - name: fixperms
     image: alpine
     commands:
