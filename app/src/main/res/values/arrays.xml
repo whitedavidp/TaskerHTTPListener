@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="http_methods">
+        <item>GET</item>
+        <item>POST</item>
+
+        <item>CONNECT</item>
+        <item>DELETE</item>
+        <item>HEAD</item>
+        <item>OPTIONS</item>
+        <item>PATCH</item>
+        <item>PUT</item>
+        <item>TRACE</item>
+    </string-array>
+</resources>

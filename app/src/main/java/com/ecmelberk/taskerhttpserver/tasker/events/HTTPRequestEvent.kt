@@ -1,6 +1,8 @@
 package com.ecmelberk.taskerhttpserver.tasker.events
 
 import android.content.Context
+import android.os.Bundle
+import android.widget.ArrayAdapter
 import com.ecmelberk.taskerhttpserver.R
 import com.ecmelberk.taskerhttpserver.http.ServiceManager
 import com.ecmelberk.taskerhttpserver.tasker.ActivityConfigTasker
@@ -28,6 +30,10 @@ class HTTPRequestRunner : TaskerPluginRunnerConditionEvent<HTTPRequestFilter, HT
 
         if (!input.regular.requestBodyContains.isNullOrEmpty())
             if (!update?.requestBody?.contains(input.regular.requestBodyContains.toString())!!)
+                return TaskerPluginResultConditionUnsatisfied()
+
+        if (!input.regular.requestMethod.isNullOrEmpty())
+            if (update?.requestMethod != input.regular.requestMethod)
                 return TaskerPluginResultConditionUnsatisfied()
 
         return TaskerPluginResultConditionSatisfied(context, update)
@@ -58,16 +64,30 @@ class HTTPRequestEvent : ActivityConfigTasker<HTTPRequestFilter, HTTPRequest, HT
             return TaskerInput(
                 HTTPRequestFilter(
                     requestPath,
-                    request_body_edit.text.toString()
+                    request_body_edit.text.toString(),
+                    request_method_spinner.selectedItem.toString()
                 )
             )
         }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        request_method_spinner.adapter =
+            ArrayAdapter.createFromResource(context, R.array.http_methods, android.R.layout.simple_spinner_item).also {
+                it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            }
+    }
 
     override fun getNewHelper(config: TaskerPluginConfig<HTTPRequestFilter>) = HTTPRequestHelper(config)
 
     override fun assignFromInput(input: TaskerInput<HTTPRequestFilter>) {
         request_path_edit.setText(input.regular.requestPath)
         request_body_edit.setText(input.regular.requestBodyContains)
+
+        request_method_spinner.post {
+            request_method_spinner.setSelection(resources.getStringArray(R.array.http_methods).indexOf(input.regular.requestMethod))
+        }
     }
 
 
