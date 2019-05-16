@@ -11,8 +11,17 @@ import com.joaomgcd.taskerpluginlibrary.output.TaskerOutputVariable
 class HTTPRequestFilter @JvmOverloads constructor(
 
     @field:TaskerInputField("requestPath", labelResId = R.string.request_path) val requestPath: String? = null,
-    @field:TaskerInputField("requestBody", labelResId = R.string.request_body_contains) val requestBodyContains: String? = null,
-    @field:TaskerInputField("requestMethod", labelResId = R.string.request_method) val requestMethod: String? = null
+    @field:TaskerInputField("requestMethod", labelResId = R.string.request_method) val requestMethod: String? = null,
+
+    @field:TaskerInputField(
+        "requestBody",
+        labelResId = R.string.request_body_contains
+    ) val requestBodyContains: String? = null,
+
+    @field:TaskerInputField(
+        "requestQuery",
+        labelResId = R.string.request_query_contains
+    ) val requestQueryContains: String? = null
 
 )
 
@@ -20,8 +29,28 @@ class HTTPRequestFilter @JvmOverloads constructor(
 @TaskerOutputObject
 class HTTPRequest @JvmOverloads constructor(
 
-    @field:TaskerInputField("requestPath") @get:TaskerOutputVariable("httprequest", R.string.request_path, R.string.request_path_desc) val requestPath: String? = null,
-    @field:TaskerInputField("requestBody") @get:TaskerOutputVariable("httpbody", R.string.request_body, R.string.request_body_desc) val requestBody: String? = null,
-    @field:TaskerInputField("requestMethod") @get:TaskerOutputVariable("httpmethod", R.string.request_method, R.string.request_method_desc) val requestMethod: String? = null
+    @field:TaskerInputField("requestPath") @get:TaskerOutputVariable(
+        "httprequest",
+        R.string.request_path,
+        R.string.request_path_desc
+    ) val requestPath: String? = null,
+
+    @field:TaskerInputField("requestBody") @get:TaskerOutputVariable(
+        "httpbody",
+        R.string.request_body,
+        R.string.request_body_desc
+    ) val requestBody: String? = null,
+
+    @field:TaskerInputField("requestMethod") @get:TaskerOutputVariable(
+        "httpmethod",
+        R.string.request_method,
+        R.string.request_method_desc
+    ) val requestMethod: String? = null,
+
+    @field:TaskerInputField("requestQuery") @get:TaskerOutputVariable(
+        "httpquery",
+        R.string.request_query,
+        R.string.request_query_desc
+    ) val requestQuery: String? = null
 
 )

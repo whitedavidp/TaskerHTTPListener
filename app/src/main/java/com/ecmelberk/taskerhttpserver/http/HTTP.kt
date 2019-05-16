@@ -11,17 +11,27 @@ import java.nio.charset.Charset
 
 class HTTP(host: String, port: Int, private val context: Context) : NanoHTTPD(host, port) {
 
-    override fun serve(session: IHTTPSession?): Response {
-        Log.i(LOGNAME, "Got request to ${session?.uri}")
+    override fun serve(session: IHTTPSession): Response {
+        Log.i(LOGNAME, "Got request to ${session.uri}")
 
-        val contentLength = Integer.parseInt(session?.headers?.get("content-length"))
-        val buffer = ByteArray(contentLength)
-        session?.inputStream?.read(buffer, 0, contentLength)
+        var body: String? = null
+        val cl = session.headers["content-length"]
 
-        val body = buffer.toString(Charset.defaultCharset())
-        Log.d(LOGNAME, "body is $body")
+        if (cl != null) {
+            val contentLength = Integer.parseInt(cl)
+            val buffer = ByteArray(contentLength)
+            session.inputStream.read(buffer, 0, contentLength)
 
-        HTTPRequestEvent::class.java.requestQuery(context, HTTPRequest(session?.uri, body, session?.method?.name))
+            body = buffer.toString(Charset.defaultCharset())
+            Log.d(LOGNAME, "body is $body")
+        }
+
+        Log.d(LOGNAME, "query is ${session.queryParameterString}")
+
+        HTTPRequestEvent::class.java.requestQuery(
+            context,
+            HTTPRequest(session.uri, body, session.method.name, session.queryParameterString)
+        )
         return newFixedLengthResponse("")
     }
 

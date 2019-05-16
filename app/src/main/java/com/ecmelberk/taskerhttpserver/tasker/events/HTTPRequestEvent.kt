@@ -36,6 +36,10 @@ class HTTPRequestRunner : TaskerPluginRunnerConditionEvent<HTTPRequestFilter, HT
             if (update?.requestMethod != input.regular.requestMethod)
                 return TaskerPluginResultConditionUnsatisfied()
 
+        if (!input.regular.requestQueryContains.isNullOrEmpty())
+            if (!update?.requestQuery?.contains(input.regular.requestQueryContains.toString())!!)
+                return TaskerPluginResultConditionUnsatisfied()
+
         return TaskerPluginResultConditionSatisfied(context, update)
     }
 
@@ -63,9 +67,10 @@ class HTTPRequestEvent : ActivityConfigTasker<HTTPRequestFilter, HTTPRequest, HT
 
             return TaskerInput(
                 HTTPRequestFilter(
-                    requestPath,
-                    request_body_edit.text.toString(),
-                    request_method_spinner.selectedItem.toString()
+                    requestPath = requestPath,
+                    requestMethod = request_method_spinner.selectedItem.toString(),
+                    requestBodyContains = request_body_edit.text.toString(),
+                    requestQueryContains = request_query_edit.text.toString()
                 )
             )
         }
@@ -84,6 +89,7 @@ class HTTPRequestEvent : ActivityConfigTasker<HTTPRequestFilter, HTTPRequest, HT
     override fun assignFromInput(input: TaskerInput<HTTPRequestFilter>) {
         request_path_edit.setText(input.regular.requestPath)
         request_body_edit.setText(input.regular.requestBodyContains)
+        request_query_edit.setText(input.regular.requestQueryContains)
 
         request_method_spinner.post {
             request_method_spinner.setSelection(resources.getStringArray(R.array.http_methods).indexOf(input.regular.requestMethod))

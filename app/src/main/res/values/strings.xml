@@ -13,6 +13,12 @@
     <string name="request_method">Request Method</string>
     <string name="request_method_desc">The method used in this request</string>
 
+    <string name="request_query">Request Query</string>
+    <string name="request_query_desc">The part after ? in the URL</string>
+
+    <string name="request_query_contains">Request Query Contains</string>
+    <string name="request_query_contains_desc">Check if the request\'s query string contains the specified string.</string>
+
     <string name="backbutton">Press back to save your changes</string>
     <string name="toggle">Toggle</string>
     <string name="optional">Optional</string>
