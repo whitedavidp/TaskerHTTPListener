@@ -1,5 +1,6 @@
 package com.ecmelberk.taskerhttpserver.http
 
+import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
@@ -31,6 +32,14 @@ class HTTPService : Service() {
                 setContentTitle("Tasker HTTP Server")
                 setContentText("Running. You can safely disable this notification.")
                 setSmallIcon(R.drawable.ic_http_black_24dp)
+                setContentIntent(
+                    PendingIntent.getActivity(
+                        this@HTTPService,
+                        0,
+                        Intent(this@HTTPService, MainActivity::class.java),
+                        0
+                    )
+                )
             }.build())
 
             ServiceManager.running = true
