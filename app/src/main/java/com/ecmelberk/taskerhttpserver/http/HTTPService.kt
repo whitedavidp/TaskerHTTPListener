@@ -9,6 +9,9 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.ecmelberk.taskerhttpserver.*
 import fi.iki.elonen.NanoHTTPD
+import java.io.InputStream
+import java.security.KeyStore
+import javax.net.ssl.KeyManagerFactory
 
 class HTTPService : Service() {
 
@@ -18,13 +21,26 @@ class HTTPService : Service() {
         if (intent.action == START) {
             var host: String
             var port: Int
+            var ssl: Boolean
 
             PreferenceManager.getDefaultSharedPreferences(this).apply {
                 host = getString("host", DEFAULT_HOST)!!
                 port = getInt("port", DEFAULT_PORT)
+                ssl = getBoolean("ssl", true)
             }
 
             http = HTTP(host, port, this)
+
+            if(ssl) {
+                val keyStoreStream: InputStream = this.getAssets().open("keystore.bks")
+                val keyStore: KeyStore = KeyStore.getInstance(KeyStore.getDefaultType())
+                keyStore.load(keyStoreStream, "myKeyStorePass".toCharArray())
+                val keyManagerFactory: KeyManagerFactory =
+                    KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm())
+                keyManagerFactory.init(keyStore, "myCertificatePass".toCharArray())
+                http?.makeSecure(NanoHTTPD.makeSSLSocketFactory(keyStore, keyManagerFactory), null)
+            }
+
             http?.start(NanoHTTPD.SOCKET_READ_TIMEOUT)
             Log.i(LOGNAME, "Server should be started about now")
 
@@ -63,5 +79,4 @@ class HTTPService : Service() {
 
         Log.i(LOGNAME, "Server should be stopped about now")
     }
-
 }
