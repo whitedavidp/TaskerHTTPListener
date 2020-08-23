@@ -1,9 +1,14 @@
-# TaskerHTTPServer [![Build Status](https://gh.ci.ecmelberk.com/api/badges/Admicos/TaskerHTTPServer/status.svg)](https://gh.ci.ecmelberk.com/Admicos/TaskerHTTPServer)
+# TaskerHTTPServer
 
-Receive HTTP pings from Tasker
+Receive HTTP requests in Tasker.
+
+## Changes from [original](https://github.com/Admicos/TaskerHTTPServer)
+
+* Lowered minimum-SDK to 16 to permit running on JellyBean (which I needed).
+* Updated to reference later version of Tasker Plugin API
+* Optionally receive HTTPS requests in Tasker using a simple, self-signed certificate found in the assets folder. Slight modification to the UI to support this.
 
 ## Downloads
 
-* [Download the latest APK here](https://issz.life/TaskerHTTPServer.apk) ([md5sum](https://issz.life/TaskerHTTPServer.md5))
-* Won't be on Google Play anytime soon unless I get a *very generous* offer about it
-* Maybe on F-Droid? We'll see...
+* [Download a debug APK here](https://drive.google.com/file/d/1OCCOsDA6yGOhJhxVuAGdvSefCCw5uPwM/view?usp=sharing) ([md5sum](f68b46845e87f0e02e30eb15bb373978))
+* Hope to get this ready for and uploaded to Play Store in an official release sometime in the future.
