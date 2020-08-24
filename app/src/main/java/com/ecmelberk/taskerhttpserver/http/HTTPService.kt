@@ -31,6 +31,9 @@ class HTTPService : Service() {
 
             http = HTTP(host, port, this)
 
+            // followed Ravi Patel's solution here https://stackoverflow.com/questions/31270613/https-server-on-android-device-using-nanohttpd/35765334
+            // remember to use KeyStore Explorer to make a BKS-V1 version to put in assets. make sure to use the passwords below or change
+            // below to what matches yours
             if(ssl) {
                 val keyStoreStream: InputStream = this.getAssets().open("keystore.bks")
                 val keyStore: KeyStore = KeyStore.getInstance(KeyStore.getDefaultType())
