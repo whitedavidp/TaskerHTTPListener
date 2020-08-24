@@ -1,4 +1,4 @@
-# TaskerHTTPServer
+# TaskerHTTPListener
 
 Receive HTTP requests in Tasker.
 
@@ -7,6 +7,7 @@ Receive HTTP requests in Tasker.
 * Lowered minimum-SDK to 16 to permit running on JellyBean (which I needed).
 * Updated to reference later version of Tasker Plugin API
 * Optionally receive HTTPS requests in Tasker using a simple, self-signed certificate found in the assets folder. Slight modification to the UI to support this.
+* Changed the name from Server to Listener as that really better describes what this app does as it really does not "serve" anything to the client.
 
 ## Downloads
 
